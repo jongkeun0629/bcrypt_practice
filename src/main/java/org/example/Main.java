@@ -7,8 +7,8 @@ public class Main {
     public static void main(String[] args) {
         UserService service = new UserService();
 
-        User user = service.register("test", "test");
-        System.out.println(user.getUsername());
-        System.out.println(user.getPasswordHash());
+        service.register("test", "test");
+
+        service.login("test1", "test1");
     }
 }

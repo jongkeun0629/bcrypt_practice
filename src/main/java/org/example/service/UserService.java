@@ -28,6 +28,23 @@ public class UserService {
         return user;
     }
 
+    public User login(String username, String rawPassword) {
+        User user = userRepo.get(username);
+        if (user == null) {
+            throw new RuntimeException("유저가 존재하지 않습니다.");
+        }
+
+        // 입력된 패스워드 해시
+        String inputHash = hashWithSHA256(rawPassword);
+
+        // 패스워드 비교. 맞으면 로그인 틀리면 에러
+        if(!inputHash.equals(user.getPasswordHash())){
+            throw new RuntimeException("패스워드가 틀렸습니다.");
+        }
+
+        return user;
+    }
+
     public String hashWithSHA256(String password){
         try{
             // sha-256 방식의 계산기
